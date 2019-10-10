@@ -2,7 +2,7 @@
   <div class="myheader">
     <section class="logo" :class="{'minWidth':isCollapse}">
       <a target="_blank"
-         href="https://github.com/liuxingzhijian1320/vue-cli3-admin.git"
+         href="https://github.com/lieaiwen/vue-base-template"
          class="logoLink">
         <img src="./images/logo.png" alt="logo" />
         <span v-if="!isCollapse">项目地址</span>
