@@ -61,7 +61,7 @@ export default {
   .main {
     box-sizing: border-box;
     margin-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px;
     background: #fff;
   }
   .el-scrollbar {

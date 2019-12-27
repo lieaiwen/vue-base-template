@@ -8,6 +8,7 @@ import './assets/styles/normalize.css' // 引入 默认 样式
 import './assets/styles/common.css' // 引入 默认 样式
 import 'element-ui/lib/theme-chalk/index.css'; // 引入 el 样式
 import store from './store/index'
+import './assets/styles/element-reset.css'
 Vue.use(ElementUI); // 使用el
 
 

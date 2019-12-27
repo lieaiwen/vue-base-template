@@ -1,0 +1,23 @@
+$cc: deeppink;
+$section-width: 700px;
+
+@mixin section-mixin {
+
+  width: $section-width;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+//距离底部的 距离
+.global-bottom{
+  margin-bottom: 20px;
+}
+// 详情 头部
+.cg-head{
+  h4{
+    margin-right: 20px;
+  }
+}
+

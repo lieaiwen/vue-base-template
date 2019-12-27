@@ -425,3 +425,10 @@ template {
 li {
     list-style-type: none;
 }
+
+/*上传图片的时候隐藏一个弹窗*/
+ .v-model{
+  display: none !important;
+}
+
+

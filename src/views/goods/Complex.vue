@@ -59,7 +59,7 @@
 <script>
 import mycontent from "../../components/layout/Content";
 export default {
-  name: "Complex",
+  name: "GoodsComplex",
   components: {
     mycontent
   },
@@ -120,7 +120,7 @@ export default {
   methods: {
     go() {
       this.$router.push({
-        path: "/table/complex/addupdate"
+        path: "/goods/complex/addupdate"
       });
     }
   }

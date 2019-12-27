@@ -2,7 +2,7 @@ export default class Utils {
     // 设置cookie
     static setCookie(key, value, expiremHours) {
         var exdate = new Date();
-        exdate.setTime(exdate.getTime() + expiremHours * 60 * 60 * 1000);
+        exdate.setTime(exdate.getTime() + expiremHours * 60 * 60 * 1000 );
         document.cookie = key + "=" + escape(value) + ((expiremHours == null) ? "" : ";expires=" + exdate.toUTCString());
     }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <transition name="el-fade-in">
-      <el-row v-if="loginShow" class="first">
+      <el-row v-if="loginShow"  class="first">
         <el-col :span="8" :offset="8">
           <div  class="main">
             <div class="title">用户登录 <span>Login User</span></div>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+  import {loginUser} from '@/api/getData'
   import Utils from "../../assets/scripts/index";
   export default {
     data () {
@@ -56,8 +57,16 @@
           user:this.user,
           userPassWord:this.userPassWord,
         }
-        Utils.setCookie("DEFAULT_TOKEN", JSON.stringify(formData), 1);
-        this.$router.push('/dashbord');
+        // 判断用户存不存在
+        loginUser(formData).then(res=>{
+          if(res.code==200){
+            Utils.setCookie("DEFAULT_TOKEN", JSON.stringify(formData), 1);
+            this.$router.push('/dashbord');
+          }else{
+            this.$message.error(res.msg)
+          }
+        })
+
       }
     }
   }

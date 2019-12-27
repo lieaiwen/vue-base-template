@@ -1,0 +1,7 @@
+
+.v-modal{
+  display: none;
+}
+.el-dialog__wrapper{
+  background: rgba(0,0,0,.5);
+}

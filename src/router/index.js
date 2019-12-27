@@ -10,7 +10,7 @@ Vue.use(Router)
 })
 router.beforeEach((to, from, next) => {
   let getInfo = Utils.getCookie('DEFAULT_TOKEN') || ''
-  console.log(to)
+  // console.log(to)
   if (!to.meta.notLogin) { // 参数不存在 意思就是不在 login页面 执行
     if (getInfo) {
       next()

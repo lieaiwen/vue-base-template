@@ -10,9 +10,7 @@ export default {
 }
 
 function filterRoutes(data) {
-  console.log(data)
   return data.find(item => {
-    console.log(item)
     if (!item.hidden) {
       return item.children.filter(code => {
         if (code.children) {

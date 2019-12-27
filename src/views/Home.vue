@@ -26,6 +26,11 @@
 	}
 </script>
 
-<style  >
-
+<style  lang="scss" scoped>
+  /*@import '../assets/styles/mixins.scss';*/
+  .one{
+    @include section-mixin;
+    border:1px solid red;
+    color:$cc;
+  }
 </style>

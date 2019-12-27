@@ -9,7 +9,7 @@
           <template v-for="(item) in routeList">
             <template v-if="!item.children || (item.children.length==0)">
               <el-menu-item :index="item.path">
-                <i class="el-icon-menu"></i>
+                <i :class="`el-icon-${item.meta.icon}`"></i>
                 <span slot="title">{{item.meta.title}}</span>
               </el-menu-item>
             </template>
@@ -17,7 +17,7 @@
             <template v-if="item.children.length>0">
               <el-submenu :index="item.path">
                 <template slot="title">
-                  <i class="el-icon-location"></i>
+                  <i :class="`el-icon-${item.meta.icon}`"></i>
                   <span slot="title">{{item.meta.title}}</span>
                 </template>
                 <el-menu-item v-for="(code, codeindex) in item.children"
@@ -47,7 +47,7 @@
       ...mapGetters(['isCollapse','routeList'])
     },
 		mounted() {
-      console.log(this.routeList)
+//      console.log(this.routeList)
 		},
 		methods: {},
 	}

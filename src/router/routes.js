@@ -2,13 +2,25 @@
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/Home'
 import Login from '@/views/login/Login'
-import Dashbord from '@/views/Dashbord/Dashbord';
+import Dashbord from '@/views/dashbord/Dashbord';
+import Superintendent from '@/views/superintendent/Superintendent'; // 管理员
+
 
 const routes = [
   // {
   //   path: '/',
   //   redirect: 'login'
   // },
+  {
+    path: '/helloWorld',
+    name: 'HelloWorld',
+    component: HelloWorld,
+    hidden: true,
+    meta: {
+      title: 'hello',
+      notLogin: true,
+    }
+  },
   {
     path: '/login',
     name: 'Login',
@@ -30,50 +42,97 @@ const routes = [
       path: "/dashbord",
       name: "dashbord",
       component: Dashbord,
-      meta: {
-        title: '首页'
-      }
+      meta: { title: '首页', 'icon': 'sort-up' }
     },
       {
-        path: "/table",
-        name: "table",
-        component: () => import ( "../views/table/Index.vue"),
-        redirect: '/table/list',
-        meta: {
-          title: '表格'
-        },
-        children: [{
-          path: "/table/list",
-          name: "tablelist",
-          component: () => import (  "../views/table/List.vue"),
-          meta: {
-            title: '简单表格'
-          }
-        },
+        path: '/superintendent',
+        name: 'Superintendent',
+        component: Superintendent,
+        meta: { 'title': '管理员列表', 'icon':'edit-outline' },
+      },
+      {
+        path: "/eidt",
+        name: "Eidt",
+        component: () => import ( "../views/edit/Index.vue"),
+        redirect: '/edit/addBanner',
+        meta: {title: '首页编辑', 'icon': 'edit'},
+        children: [
           {
-            path: "/table/complex",
-            name: "tablecomplex",
-            component: () => import ("../views/table/Complex.vue"),
-            meta: {
-              title: '复杂表格'
-            },
+            path: "/edit/addBanner",
+            name: "AddBanner",
+            component: () => import (  "../views/edit/AddBanner.vue"),
+            meta: { title: '编辑轮播图' }
+          },
+          {
+            path: "/edit/addCoupon",
+            name: "AddCoupon",
+            component: () => import (  "../views/edit/AddCoupon.vue"),
+            meta: { title: '编辑优惠券' }
+          },
+          {
+            path: "/edit/addNews",
+            name: "AddNews",
+            component: () => import (  "../views/edit/AddNews.vue"),
+            meta: { title: '编辑新闻' },
             children: [{
-              path: "/table/complex/addupdate",
-              name: "complexaddupdate",
-              component: () => import ( "../views/table/AddUpdate.vue"),
+              path: "/edit/addNews/editNews",
+              name: "EditNews",
+              component: () => import ( "../views/edit/components/EditNews.vue"),
               meta: {
-                title: '新增编辑'
+                title: '添加新闻'
               },
             }]
           },
         ]
       },
       {
+        path: "/goods",
+        name: "Goods",
+        component: () => import ( "../views/goods/Index.vue"),
+        redirect: '/goods/sale',
+        meta: {title: '商品管理', 'icon':'goods'},
+        children: [{
+          path: "/goods/sale",
+          name: "GoodsSale",
+          component: () => import (  "../views/goods/Sale.vue"),
+          meta: {
+            title: '出售中'
+          },
+            children: [{
+              path: "/goods/sale/addupdate",
+              name: "GoodsAddupdate",
+              component: () => import ( "../views/goods/AddUpdate.vue"),
+              meta: {
+                title: '新增商品'
+              },
+            }]
+        },
+          {
+            path: "/goods/category",
+            name: "GoodsCategory",
+            component: () => import (  "../views/goods/Category.vue"),
+            meta: {
+              title: '商品分类'
+            }
+          },
+        ]
+      },
+      {
+        path: '/order',
+        name: 'Order',
+        component: () => import( "../views/order/Index.vue"),
+        meta: { 'title': '订单管理', 'icon':'tickets' },
+      },
+      {
+        path: '/user',
+        name: 'User',
+        component: () => import( "../views/user/Index.vue"),
+        meta: { 'title': '用户列表', 'icon':'view' },
+      },
+      {
         path: "/about",
         name: "About",
-        meta: {
-          title: '关于我们'
-        },
+        meta: { title: '关于我们', 'icon':'phone-outline' },
         component: () => import ( "@/views/about/About"),
         children: [{
           path: '/about/add',
@@ -84,7 +143,13 @@ const routes = [
             title: '创建'
           }
         }, ]
-      }
+      },
+      {
+        path: '/sku',
+        name: 'Sku',
+        component: () => import( "../views/user/sku.vue"),
+        meta: { 'title': '商品多规格', 'icon':'view' },
+      },
 
     ]
   }
