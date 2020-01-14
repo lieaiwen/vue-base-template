@@ -18,7 +18,7 @@
         </el-col>
         <el-col :span="4" >
           <el-input
-            placeholder="请输入商品名称"
+            placeholder="请输入订单号"
             v-model="searchName">
           </el-input>
         </el-col>
@@ -109,42 +109,14 @@
         options: [
           {value: '选项1', label: '未付款'},
           {value: '选项2', label: '已付款'}],
-        tableData: [{
-          id: '12987122',
-          name: '王小虎1',
-          amount1: '234',
-          amount2: '3.2',
-          amount3: 10,
-          len:1,
-        }, {
-          id: '12987123',
-          name: '王小虎1',
-          amount1: '165',
-          amount2: '4.43',
-          amount3: 12,
-          len:2,
-        }, {
-          id: '12987124',
-          name: '王小虎2',
-          amount1: '324',
-          amount2: '1.9',
-          amount3: 9,
-          len:0,
-        }, {
-          id: '12987125',
-          name: '王小虎3',
-          amount1: '621',
-          amount2: '2.2',
-          amount3: 17,
-          len:2,
-        }, {
-          id: '12987126',
-          name: '王小虎3',
-          amount1: '539',
-          amount2: '4.1',
-          amount3: 15,
-          len:0,
-        }],
+        tableData: [{id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:3,},
+          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:0,},
+          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:0,},
+          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:1,},
+          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:2,},
+          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:0,},
+          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:1,},
+          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:1,},],
         count:100,
         pageSize:10,
       }
@@ -159,11 +131,9 @@
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         console.log(row, column, rowIndex, columnIndex )
         if (columnIndex === 0) {
-          if (row['len'] == 2) {
-            return {rowspan: 2, colspan: 1};
-          } else if(row['len'] == 1) {
-            return {rowspan:1, colspan: 1};
-          }else  {
+          if (row['len']>0) {
+            return {rowspan: row['len'], colspan: 1};
+          } else  {
             return {rowspan: 0, colspan: 0};
           }
         }

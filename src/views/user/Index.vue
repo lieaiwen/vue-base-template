@@ -12,18 +12,6 @@
             v-model="searchName">
           </el-input>
         </el-col>
-        <el-col :span="8">
-          <el-date-picker
-            v-model="time"
-            type="daterange"
-            align="right"
-            unlink-panels
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            :picker-options="pickerOptions">
-          </el-date-picker>
-        </el-col>
         <el-col :span="4">
           <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
         </el-col>
@@ -64,37 +52,11 @@
 </template>
 
 <script>
-  import {userList, deleteUser } from '../../api/getData'
+  import {userList, deleteUser, singleUser } from '../../api/getData'
 	export default {
 		data() {
 			return {
-        pickerOptions: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
+
         time: '',
         tableList:[],
         count:100,
@@ -116,13 +78,15 @@
             search:that.searchName
         };
         userList(req).then(res => {
-          console.log(res)
           if(res.code==200){
             that.tableList = res.data;
             that.count = res.count;
           }else{
             this.$message({showClose: true, message: '获取列表失败', type: 'warning'});
           }
+        })
+        singleUser().then(res =>{
+          console.log(res)
         })
       },
       // 点击删除
@@ -148,7 +112,7 @@
         this.init();
       },
       search(){
-
+        this.init();
       },
     },
 	}

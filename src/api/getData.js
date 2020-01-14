@@ -141,3 +141,5 @@ export const updateAdmin= p => $http.post(`${defaulturl}index.php?s=/index/Login
 export const userList= p => $http.post(`${defaulturl}index.php?s=/index/user/userList`, p);
 // 2.0 删除
 export const deleteUser= p => $http.post(`${defaulturl}index.php?s=/index/user/deleteUser`, p);
+// 3.0 获取单个用户信息
+export const singleUser= p => $http.get(`${defaulturl}index.php?s=/index/user/singleUser`, p);
