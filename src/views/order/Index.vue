@@ -30,58 +30,34 @@
       <!--列表-->
       <el-table
         :data="tableData"
-        :span-method="objectSpanMethod"
         border
         style="width: 100%; margin-top: 20px">
-        <el-table-column
-          prop="id"
-          label="订单ID"
-          width="180">
-        </el-table-column>
+        <el-table-column prop="order_id" label="订单ID" width="180"></el-table-column>
         <el-table-column  label="商品信息">
           <template slot-scope="scope">
-            <div><img src='../../assets/images/use.png' width="60" height="60" class="head_pic"/></div>
-            <div>波兰Tymbark定霸果汁饮料</div>
+            <div><img :src='scope.row.goods_detail.img' width="60" height="60" class="head_pic"/></div>
+            <div>{{scope.row.goods_detail.shop_name}}</div>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="name"
-          label="订单号">
-        </el-table-column>
+        <el-table-column prop="order_number" label="订单号"></el-table-column>
         <el-table-column  label="单价/数量">
           <template slot-scope="scope">
-            <div>￥0.01</div>
-            <div>x 1</div>
+            <div>￥{{scope.row.goods_detail.price}}</div>
+            <div>x {{scope.row.goods_num}}</div>
           </template>
         </el-table-column>
         <el-table-column  label="买家">
           <template slot-scope="scope">
-            <div>消消</div>
-            <div>（用户id：456）</div>
+            <div>电话：{{scope.row.user_detail.phone}}</div>
+            <div>id：{{scope.row.user_detail.id}}</div>
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="订单状态" >
           <template slot-scope="scope">
-            <el-button type="danger" size="small" >已付款</el-button>
-            <el-button  type="danger" icon="el-icon-delete" size="mini">未付款</el-button>
+            <el-button type="danger" size="small" v-if="scope.row.is_pay==1">已付款</el-button>
+            <el-button  type="danger" icon="el-icon-delete" size="mini" v-if="scope.row.is_pay==0">未付款</el-button>
           </template>
         </el-table-column>
-        <!--<el-table-column-->
-          <!--prop="name"-->
-          <!--label="姓名">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--prop="amount1"-->
-          <!--label="数值 1（元）">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--prop="amount2"-->
-          <!--label="数值 2（元）">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--prop="amount3"-->
-          <!--label="数值 3（元）">-->
-        <!--</el-table-column>-->
       </el-table>
 
       <!--分页-->
@@ -101,35 +77,47 @@
 </template>
 
 <script>
+  import {endOrderList} from '@/api/getData'
 	export default {
 		data() {
 			return {
         searchName: '',
         value: '',
         options: [
-          {value: '选项1', label: '未付款'},
-          {value: '选项2', label: '已付款'}],
-        tableData: [{id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:3,},
-          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:0,},
-          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:0,},
-          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:1,},
-          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:2,},
-          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:0,},
-          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:1,},
-          {id: '12987122', name: '王小虎1', amount1: '234', amount2: '3.2', amount3: 10, len:1,},],
-        count:100,
+          {value: '0', label: '未付款'},
+          {value: '1', label: '已付款'}],
+        tableData: [],
+        count:0,
         pageSize:10,
+        page:1,
       }
 		},
+    created(){
+		  this.init();
+    },
 		mounted() {
 		},
 		methods: {
+      //
+      init(){
+        let that = this;
+        let req = {
+          'page':that.page,
+          'is_pay':that.value,
+          'order_number': that.searchName
+        };
+        endOrderList(req).then(res=>{
+          console.log(res);
+          that.count = res.count;
+          that.tableData = res.data;
+        })
+      },
 		  // 点击搜索
       searchGoods(){
-
+        this.page = 1;
+        this.init()
       },
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
-        console.log(row, column, rowIndex, columnIndex )
         if (columnIndex === 0) {
           if (row['len']>0) {
             return {rowspan: row['len'], colspan: 1};

@@ -9,21 +9,21 @@
         <el-col :sm="24" :md="12" :lg="6" >
           <div class="grid-content bg-purple1 flex-col">
             <span>商品总量</span>
-            <p>426</p>
+            <p>{{detail.goods_number}}</p>
             <div>当前商品总量</div>
           </div>
         </el-col>
         <el-col  :sm="24" :md="12" :lg="6" >
           <div class="grid-content bg-purple2 flex-col">
             <span>用户总量</span>
-            <p>2,270</p>
+            <p>{{detail.user_number}}</p>
             <div>当前用户总数量</div>
           </div>
         </el-col>
         <el-col  :sm="24" :md="12" :lg="6" >
           <div class="grid-content bg-purple3 flex-col">
             <span>订单总量</span>
-            <p>426</p>
+            <p>{{detail.order_number}}</p>
             <div>已付款订单总数量</div>
           </div>
         </el-col>
@@ -48,13 +48,13 @@
             <img src="../../assets/images/i-many.png" alt="">
             <div class="t-many flex-col">
               <div>销售额(元)</div>
-              <div>0.00</div>
-              <div>昨日：0.00</div>
+              <div>{{detail.sale_many}}</div>
+              <!--<div>昨日：0.00</div>-->
             </div>
             <div class="t-many t-many2 flex-col">
               <div>支付订单数</div>
-              <div>0</div>
-              <div>昨日：0</div>
+              <div>{{detail.order_number_pay}}</div>
+              <!--<div>昨日：0</div>-->
             </div>
           </div>
         </el-col>
@@ -63,13 +63,13 @@
             <img src="../../assets/images/i-many.png" alt="">
             <div class="t-many flex-col">
               <div>新增用户数</div>
-              <div>0.00</div>
-              <div>昨日：0.00</div>
+              <div>{{detail.user_number}}</div>
+              <!--<div>昨日：0.00</div>-->
             </div>
             <div class="t-many t-many2 flex-col">
               <div>下单用户数</div>
-              <div>0</div>
-              <div>昨日：0</div>
+              <div>{{detail.user_number_order}}</div>
+              <!--<div>昨日：0</div>-->
             </div>
           </div>
         </el-col>
@@ -86,14 +86,14 @@
         <echarts  :echartsData="echartsData" />
       </div>
     </div>
-
-    <div @click = "some()">25546546</div>
+    <!--<div @click = "some()">25546546</div>-->
   </div>
 </template>
 
 <script>
   import routes from '@/router/routes'
   import echarts from '@/views/echarts/index'
+  import {oftenMessage} from '@/api/getData'
 export default {
   components: {
     echarts
@@ -154,12 +154,22 @@ export default {
           },
         ]
       },
+      detail:{},
     }
   },
   created(){
       this.da = routes;
+      this.init();
   },
   methods: {
+    // 获取首页数据
+    init(){
+      let that = this;
+      oftenMessage().then( res => {
+        that.detail = res.data;
+      })
+    },
+
     some(){
       let data = this.da;
       let b =  filterRoutes(data)

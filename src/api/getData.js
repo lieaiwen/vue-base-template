@@ -1,5 +1,8 @@
 import axios from 'axios'//引入axios
-const defaulturl = "http://localhost/mySelfShop/tt/thinkphp5/public/";//定义接口公共的前半部分地址
+// 测试的
+//const defaulturl = "http://localhost/mySelfShop/tt/thinkphp5/public/";//定义接口公共的前半部分地址
+// 正式的
+const defaulturl = "http://www.zliel.top/thinkphp5/public/";//定义接口公共的前半部分地址
 import qs from 'qs';
 
 // 对axios 的封装
@@ -143,3 +146,9 @@ export const userList= p => $http.post(`${defaulturl}index.php?s=/index/user/use
 export const deleteUser= p => $http.post(`${defaulturl}index.php?s=/index/user/deleteUser`, p);
 // 3.0 获取单个用户信息
 export const singleUser= p => $http.get(`${defaulturl}index.php?s=/index/user/singleUser`, p);
+
+// 首页的数据
+export const oftenMessage= p => $http.get(`${defaulturl}index.php?s=/index/index/oftenMessage`, p);
+
+// 获取订单 列表 endOrderList
+export const endOrderList= p => $http.get(`${defaulturl}index.php?s=/index/order/endOrderList`, p);

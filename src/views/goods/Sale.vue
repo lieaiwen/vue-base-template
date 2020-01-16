@@ -116,7 +116,9 @@
           page:this.page,
           pageSize:this.pageSize,
           goods_name:this.goods_name, // 商品名字
-          category_name:this.category_name // 分类名字
+          category_name:this.category_name, // 分类名字
+          type:'all',
+          sortPrice:0,
         };
         allGoodsList(req).then(res=>{
             that.countNumber = res.count;
@@ -146,12 +148,21 @@
         this.$router.push({path: "/goods/sale/addupdate",query:{id}});
       },
       handleClickDel(id){
+        let that = this;
         let req = {id};
-        singleGoodsDelete(req).then( res => {
+        this.$confirm('确定删除该用户?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          singleGoodsDelete(req).then( res => {
             if(res.code==200){
-              this.init();
+              that.$message({type: 'success', message: '删除成功!'});
             }
-        })
+              this.init();
+          })
+        }).catch(()=>{})
+
       },
 
 

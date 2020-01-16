@@ -85,9 +85,9 @@
     data () {
       return {
         init: {
-         language_url: '/static/tinymce/langes/zh_CN.js',
+         language_url: '/static/tinymce/langes/zh_CN.js', // 打包之前需要加.
           language: 'zh_CN',
-          skin_url: '/static/tinymce/skins/ui/oxide', // 这个地方需要注意啦！
+          skin_url: '/static/tinymce/skins/ui/oxide', // 这个地方需要注意啦！ 打包之前需要加.
           height: 600,
           width:375,
           plugins: this.plugins,
